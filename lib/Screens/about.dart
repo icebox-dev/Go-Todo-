@@ -38,22 +38,33 @@ class AboutScreen extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
-                    Text("Terms of Use & Privacy Policy",style: TextStyle(fontSize: 20),),
+                    Text("Terms of Use & Privacy Policy",style: Theme.of(context).textTheme.subtitle1?.copyWith(
+                      fontSize: 20
+                    )),
                     SizedBox(height: 15,),
-                    Text("Open sourse licenses",style: TextStyle(fontSize: 20),),
+                    Text("Open sourse licenses",style: Theme.of(context).textTheme.subtitle1?.copyWith(
+                        fontSize: 20
+                    ),),
                     SizedBox(height: 15,),
                     Column(
                       crossAxisAlignment:CrossAxisAlignment.start,
                         children: [
-                      Text("Version",style: TextStyle(fontSize: 20),),
-                      Padding(padding: const EdgeInsets.only(left: 2),child: Text("1.0.0",style: TextStyle(fontSize: 14,fontStyle: FontStyle.italic),),)
+                      Text("Version",style: Theme.of(context).textTheme.subtitle1?.copyWith(
+                        fontSize: 20
+                    ),),
+                      Padding(
+                        padding: const EdgeInsets.only(left: 2),
+                        child: Text("1.0.0",
+                          style: TextStyle(fontSize: 14,
+                            fontStyle: FontStyle.italic,
+                            color: Color(0xffABABAB),),),)
                     ],)
                   ],
                 ),
               ),
               decoration: BoxDecoration(
               borderRadius: BorderRadius.all(Radius.elliptical(10, 10)),
-              color: Colors.blue[100],
+              color: Theme.of(context).secondaryHeaderColor,
             ),
             )
 

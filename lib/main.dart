@@ -5,6 +5,7 @@ import 'package:go_todo/Screens/about.dart';
 import 'package:go_todo/navigation_screen.dart';
 
 import 'Screens/connecion_screen.dart';
+import 'Screens/home_screen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -20,9 +21,11 @@ class MyApp extends StatelessWidget {
       title: 'Go-Todo',
       themeMode: ThemeMode.system,
       darkTheme: ThemeData(
+        // primaryColor: Colors.white38,
+        primaryColorDark: Colors.white,
         secondaryHeaderColor: Color(0xff1E1E1E),//secondary backgroud color
         iconTheme: IconThemeData(
-          color: Colors.white54
+          color: Colors.blueAccent
         ),
         textTheme: TextTheme(
           subtitle1: TextStyle(
@@ -40,9 +43,11 @@ class MyApp extends StatelessWidget {
 
       //................................................................................................................................
       theme: ThemeData(
+        primaryColorDark: Colors.black,
         secondaryHeaderColor: Color(0xffF4F8FF),//secondary background color
         iconTheme: IconThemeData(
-          color: Color(0xff888888)
+          color: Colors.blueAccent
+          // Color(0xff888888)
         ),
         textTheme: TextTheme(
             subtitle1: TextStyle(

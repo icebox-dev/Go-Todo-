@@ -97,8 +97,8 @@ class GroupsWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListView(
       children: [
-        ConnectionListView("https://images.pexels.com/photos/3184418/pexels-photo-3184418.jpeg?auto=compress&cs=tinysrgb&w=126&h=75&dpr=1", "IceBox Developers", "Tap for more info.."),
-        ConnectionListView("https://i.pinimg.com/564x/8e/93/b6/8e93b6dd83bf48aa388fd2c95d7d1b19.jpg", "Fast and Furious", "Tap for more info.."),
+        ConnectionListView("https://images.pexels.com/photos/3184418/pexels-photo-3184418.jpeg?auto=compress&cs=tinysrgb&w=126&h=75&dpr=1", "IceBox Developers", "Ajay Mathew Edathazhe,Amal Krishna JK,Praveen K Nair,Vaishnav NT"),
+        ConnectionListView("https://i.pinimg.com/564x/8e/93/b6/8e93b6dd83bf48aa388fd2c95d7d1b19.jpg", "Fast and Furious", "---"),
 
       ],
     );
@@ -117,8 +117,8 @@ class ConnectionListView extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListTile(
       leading: CircleAvatar(backgroundImage:NetworkImage(urlStr),radius: 25,),
-      title: Text(mainTitle,style: TextStyle(fontWeight:FontWeight.bold,fontSize: 20),),
-      subtitle: Text(subTittle,style: TextStyle(letterSpacing: 2,fontStyle: FontStyle.italic),),
+      title: Text(mainTitle,style: TextStyle(fontWeight:FontWeight.bold,fontSize: 20,color: Theme.of(context).primaryColorDark),),
+      subtitle: Text(subTittle,maxLines: 1,softWrap:false,overflow: TextOverflow.ellipsis,style: TextStyle(letterSpacing: 0,fontStyle: FontStyle.italic,color: Color(0xffABABAB)),),
       onTap: (){},
       dense: false,
     );
@@ -134,16 +134,24 @@ class FriendRequestView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListTile(
-      tileColor: Colors.blue[100],
-      leading: CircleAvatar(child: Icon(Icons.person_add_alt),),
-      title: Text("Friend Requests..",style: TextStyle(fontWeight:FontWeight.bold,fontSize: 20),),
+      tileColor: Theme.of(context).secondaryHeaderColor,
+      leading: Padding(
+        padding: const EdgeInsets.only(left: 15.0),
+        child: Icon(Icons.person_add_alt,color:
+        Theme.of(context).iconTheme.color
+          ,),
+      ),
+      title: Padding(
+        padding: const EdgeInsets.only(left: 10.0),
+        child: Text("Friend Requests..",style: TextStyle(fontWeight:FontWeight.bold,fontSize: 20),),
+      ),
       trailing: Container(
         child: Text(number),
         height: 20,
         width: 20,
         alignment: Alignment.center,
         decoration: BoxDecoration(
-          color: Colors.white,
+          color: Colors.greenAccent,
           shape: BoxShape.circle
         ),
       ),
