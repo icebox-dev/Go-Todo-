@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:go_todo/Screens/about.dart';
 import 'package:go_todo/navigation_screen.dart';
@@ -18,16 +20,49 @@ class MyApp extends StatelessWidget {
       title: 'Go-Todo',
       themeMode: ThemeMode.system,
       darkTheme: ThemeData(
-        scaffoldBackgroundColor: Colors.black12,
-    ),
+        secondaryHeaderColor: Color(0xff1E1E1E),//secondary backgroud color
+        iconTheme: IconThemeData(
+          color: Colors.white54
+        ),
+        textTheme: TextTheme(
+          subtitle1: TextStyle(
+            color: Colors.white54
+          ),
+
+        ),
+        backgroundColor: Color(0xff101010),
+        appBarTheme: AppBarTheme(
+          backgroundColor: Color(0xff272727)
+        ),
+        scaffoldBackgroundColor: Color(0xff101010),
+
+      ),
+
+      //................................................................................................................................
       theme: ThemeData(
-        scaffoldBackgroundColor: Colors.lightBlue[100],
+        secondaryHeaderColor: Color(0xffF4F8FF),//secondary background color
+        iconTheme: IconThemeData(
+          color: Color(0xff888888)
+        ),
+        textTheme: TextTheme(
+            subtitle1: TextStyle(
+                color: Color(0xff222222)
+            )
+        ),
+        scaffoldBackgroundColor:Color(0xffFDFDFD),
+        backgroundColor:Color(0xffFDFDFD) ,
+        appBarTheme: AppBarTheme(
+          color: Color(0xff3E6FF5)
+        ),
+
+        //primarySwatch: Colors.blue,
       ),
       // home: AboutScreen(),
       routes: {
         '/': (context) => const NavigationScreen(),
         '/about': (context) => const AboutScreen(),
-        '/connections':(context)=> const ConnectionsScreen()
+        '/connections':(context)=> const ConnectionsScreen(),
+        '/home':(conetext)=> const HomeScreen()
       },
       initialRoute: '/',
     );

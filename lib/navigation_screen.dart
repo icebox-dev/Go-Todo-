@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_todo/Screens/home_screen.dart';
 
 
 class NavigationScreen extends StatelessWidget {
@@ -14,6 +15,12 @@ class NavigationScreen extends StatelessWidget {
             children: [
               TextButton(onPressed: (){}, child: Text("Login")),
               TextButton(onPressed: (){}, child: Text("Home"),),
+              TextButton(onPressed: (){
+                Navigator.push(context, MaterialPageRoute(builder: (context)=>HomeScreen()));
+              }
+                , child: Text("Home",
+
+              ),),
               TextButton(onPressed: (){}, child: Text("addtask")),
               TextButton(onPressed: (){}, child: Text("settings")),
               TextButton(onPressed: (){
