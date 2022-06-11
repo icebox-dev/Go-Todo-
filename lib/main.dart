@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:go_todo/navigation_screen.dart';
 
@@ -15,37 +17,42 @@ class MyApp extends StatelessWidget {
       title: 'Go-Todo',
       themeMode: ThemeMode.system,
       darkTheme: ThemeData(
-        scaffoldBackgroundColor: Colors.lightBlue,
-
-            textTheme: TextTheme(
-          headline1: TextStyle(
-            color: Colors.white
-          )
-      ),
-      extensions: const <ThemeExtension<dynamic>>[
-
-      ]
-
-
-
-
-
-      ),
-      theme: ThemeData(
-        scaffoldBackgroundColor: Colors.red,
-        appBarTheme: AppBarTheme(
+        secondaryHeaderColor: Color(0xff1E1E1E),//secondary backgroud color
+        iconTheme: IconThemeData(
+          color: Colors.white54
+        ),
+        textTheme: TextTheme(
+          subtitle1: TextStyle(
+            color: Colors.white54
+          ),
 
         ),
-        // This is the theme of your application.
-        //
-        // Try running your application with "flutter run". You'll see the
-        // application has a blue toolbar. Then, without quitting the app, try
-        // changing the primarySwatch below to Colors.green and then invoke
-        // "hot reload" (press "r" in the console where you ran "flutter run",
-        // or simply save your changes to "hot reload" in a Flutter IDE).
-        // Notice that the counter didn't reset back to zero; the application
-        // is not restarted.
-        primarySwatch: Colors.blue,
+        backgroundColor: Color(0xff101010),
+        appBarTheme: AppBarTheme(
+          backgroundColor: Color(0xff272727)
+        ),
+        scaffoldBackgroundColor: Color(0xff101010),
+
+      ),
+
+      //................................................................................................................................
+      theme: ThemeData(
+        secondaryHeaderColor: Color(0xffF4F8FF),//secondary background color
+        iconTheme: IconThemeData(
+          color: Color(0xff888888)
+        ),
+        textTheme: TextTheme(
+            subtitle1: TextStyle(
+                color: Color(0xff222222)
+            )
+        ),
+        scaffoldBackgroundColor:Color(0xffFDFDFD),
+        backgroundColor:Color(0xffFDFDFD) ,
+        appBarTheme: AppBarTheme(
+          color: Color(0xff3E6FF5)
+        ),
+
+        //primarySwatch: Colors.blue,
       ),
       home: const NavigationScreen(),
     );
