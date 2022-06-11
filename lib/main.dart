@@ -1,7 +1,10 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:go_todo/Screens/about.dart';
 import 'package:go_todo/navigation_screen.dart';
+
+import 'Screens/connecion_screen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -54,7 +57,14 @@ class MyApp extends StatelessWidget {
 
         //primarySwatch: Colors.blue,
       ),
-      home: const NavigationScreen(),
+      // home: AboutScreen(),
+      routes: {
+        '/': (context) => const NavigationScreen(),
+        '/about': (context) => const AboutScreen(),
+        '/connections':(context)=> const ConnectionsScreen(),
+        '/home':(conetext)=> const HomeScreen()
+      },
+      initialRoute: '/',
     );
   }
 }

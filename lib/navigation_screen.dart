@@ -14,6 +14,7 @@ class NavigationScreen extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               TextButton(onPressed: (){}, child: Text("Login")),
+              TextButton(onPressed: (){}, child: Text("Home"),),
               TextButton(onPressed: (){
                 Navigator.push(context, MaterialPageRoute(builder: (context)=>HomeScreen()));
               }
@@ -22,13 +23,14 @@ class NavigationScreen extends StatelessWidget {
               ),),
               TextButton(onPressed: (){}, child: Text("addtask")),
               TextButton(onPressed: (){}, child: Text("settings")),
-              TextButton(onPressed: (){}, child: Text("Connection")),
-              TextButton(onPressed: (){}, child: Text("about")),
+              TextButton(onPressed: (){
+                Navigator.pushNamed(context, '/connections');
+              }, child: Text("Connection")),
+              TextButton(onPressed: (){
+                Navigator.pushNamed(context, '/about');
+              }, child: Text("about")),
               TextButton(onPressed: (){}, child: Text("others")),
-
             ],
-
-
           ),
         ),
       ),
