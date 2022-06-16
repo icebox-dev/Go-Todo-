@@ -21,7 +21,9 @@ class NavigationScreen extends StatelessWidget {
                 , child: Text("Home",
 
               ),),
-              TextButton(onPressed: (){}, child: Text("addtask")),
+              TextButton(onPressed: (){
+                Navigator.pushNamed(context, '/task');
+              }, child: Text("addtask")),
               TextButton(onPressed: (){}, child: Text("settings")),
               TextButton(onPressed: (){
                 Navigator.pushNamed(context, '/connections');

@@ -1,7 +1,9 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:go_todo/Screens/about.dart';
+import 'package:go_todo/Screens/task_screen.dart';
 import 'package:go_todo/navigation_screen.dart';
 
 import 'Screens/connecion_screen.dart';
@@ -13,7 +15,6 @@ void main() {
 
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
-
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
@@ -67,9 +68,16 @@ class MyApp extends StatelessWidget {
         '/': (context) => const NavigationScreen(),
         '/about': (context) => const AboutScreen(),
         '/connections':(context)=> const ConnectionsScreen(),
-        '/home':(conetext)=> const HomeScreen()
+        '/home':(conetext)=> const HomeScreen(),
+        '/task':(context)=> const TaskScreen()
       },
       initialRoute: '/',
+      localizationsDelegates: [
+        GlobalWidgetsLocalizations.delegate,
+        GlobalMaterialLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
+      ],
+      supportedLocales: [Locale('en', 'US')],
     );
   }
 }
