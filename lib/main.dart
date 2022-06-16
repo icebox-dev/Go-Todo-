@@ -17,6 +17,7 @@ class MyApp extends StatelessWidget {
       title: 'Go-Todo',
       themeMode: ThemeMode.system,
       darkTheme: ThemeData(
+
         secondaryHeaderColor: Color(0xff1E1E1E),//secondary backgroud color
         iconTheme: IconThemeData(
           color: Colors.white54
@@ -37,6 +38,7 @@ class MyApp extends StatelessWidget {
 
       //................................................................................................................................
       theme: ThemeData(
+
         secondaryHeaderColor: Color(0xffF4F8FF),//secondary background color
         iconTheme: IconThemeData(
           color: Color(0xff888888)
