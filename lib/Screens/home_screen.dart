@@ -109,7 +109,7 @@ class IncompleteTasks extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      child: Text("Incomplete"
+      child: Text("COMPLETED"
           ),
     );
   }
@@ -122,7 +122,7 @@ class CompletedTasks extends StatelessWidget {
     return Scaffold(
       floatingActionButton: FloatingActionButton(onPressed: (){},child: Icon(Icons.add),),
       body:Container(
-    child: Text("Complete"
+    child: Text("TODO"
     ),
       )
     );
