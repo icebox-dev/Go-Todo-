@@ -23,7 +23,6 @@ class MyApp extends StatelessWidget {
       title: 'Go-Todo',
       themeMode: ThemeMode.system,
       darkTheme: ThemeData(
-
         // primaryColor: Colors.white38,
         primaryColorDark: Colors.white,
         secondaryHeaderColor: Color(0xff1E1E1E),//secondary backgroud color
