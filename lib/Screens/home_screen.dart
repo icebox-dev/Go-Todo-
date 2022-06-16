@@ -59,42 +59,44 @@ class _HomeScreenState extends State<HomeScreen> {
         ),
 
         body: Container(
-      child: Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: <Widget>[
-        DefaultTabController(
-            length: 2, // length of tabs
-            initialIndex: 0,
-            child: Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: <Widget>[
-              Container(
-                child: Center(
-                  child: TabBar(
+      child: SingleChildScrollView(
+        child: Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: <Widget>[
+          DefaultTabController(
+              length: 2, // length of tabs
+              initialIndex: 0,
+              child: Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: <Widget>[
+                Container(
+                  child: Center(
+                    child: TabBar(
 
-                    isScrollable: true,
-                    labelColor: Colors.black54,
-                    indicatorColor: Colors.transparent,
+                      isScrollable: true,
+                      labelColor: Colors.black54,
+                      indicatorColor: Colors.transparent,
 
-                    unselectedLabelColor: Colors.grey,
-                    padding: EdgeInsets.zero,
-                    labelPadding: EdgeInsets.zero,
-                    indicatorPadding: EdgeInsets.zero,
-                    tabs: [
-                      Icon(Icons.square,size: 10,),
-                      Icon(Icons.square,size: 10,)
-                    ],
+                      unselectedLabelColor: Colors.grey,
+                      padding: EdgeInsets.zero,
+                      labelPadding: EdgeInsets.zero,
+                      indicatorPadding: EdgeInsets.zero,
+                      tabs: [
+                        Icon(Icons.square,size: 10,),
+                        Icon(Icons.square,size: 10,)
+                      ],
+                    ),
                   ),
                 ),
-              ),
-              Container(
+                Container(
 
-                   height: queryData.size.height - 100,
-                   //height of TabBarView
-                  child: TabBarView(children: <Widget>[
-                    CompletedTasks(),
-                    IncompleteTasks()
-                  ])
-              )
-            ])
-        ),
-      ]),
+                     height: queryData.size.height - 100,
+                     //height of TabBarView
+                    child: TabBarView(children: <Widget>[
+                      CompletedTasks(),
+                      IncompleteTasks()
+                    ])
+                )
+              ])
+          ),
+        ]),
+      ),
     ),
       ));
   }
