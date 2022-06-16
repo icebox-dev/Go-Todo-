@@ -7,6 +7,7 @@ import 'package:go_todo/navigation_screen.dart';
 
 import 'Screens/home_screen.dart';
 import 'Screens/connecion_screen.dart';
+import 'Screens/home_screen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -22,8 +23,13 @@ class MyApp extends StatelessWidget {
       title: 'Go-Todo',
       themeMode: ThemeMode.system,
       darkTheme: ThemeData(
-        secondaryHeaderColor: Color(0xff1E1E1E), //secondary backgroud color
-        iconTheme: IconThemeData(color: Colors.white54),
+
+        // primaryColor: Colors.white38,
+        primaryColorDark: Colors.white,
+        secondaryHeaderColor: Color(0xff1E1E1E),//secondary backgroud color
+        iconTheme: IconThemeData(
+          color: Colors.blueAccent
+        ),
         textTheme: TextTheme(
           subtitle1: TextStyle(color: Colors.white54),
         ),
@@ -34,12 +40,22 @@ class MyApp extends StatelessWidget {
 
       //................................................................................................................................
       theme: ThemeData(
-        secondaryHeaderColor: Color(0xffF4F8FF), //secondary background color
-        iconTheme: IconThemeData(color: Color(0xff888888)),
-        textTheme: TextTheme(subtitle1: TextStyle(color: Color(0xff222222))),
-        scaffoldBackgroundColor: Color(0xffFDFDFD),
-        backgroundColor: Color(0xffFDFDFD),
-        appBarTheme: AppBarTheme(color: Color(0xff3E6FF5)),
+        primaryColorDark: Colors.black,
+        secondaryHeaderColor: Color(0xffF4F8FF),//secondary background color
+        iconTheme: IconThemeData(
+          color: Colors.blueAccent
+          // Color(0xff888888)
+        ),
+        textTheme: TextTheme(
+            subtitle1: TextStyle(
+                color: Color(0xff222222)
+            )
+        ),
+        scaffoldBackgroundColor:Color(0xffFDFDFD),
+        backgroundColor:Color(0xffFDFDFD) ,
+        appBarTheme: AppBarTheme(
+          color: Color(0xff3E6FF5)
+        ),
 
         //primarySwatch: Colors.blue,
       ),
