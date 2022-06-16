@@ -4,8 +4,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:go_todo/Screens/about.dart';
 import 'package:go_todo/Screens/task_screen.dart';
+import 'package:go_todo/Screens/settings.dart';
 import 'package:go_todo/navigation_screen.dart';
 
+import 'Screens/home_screen.dart';
 import 'Screens/connecion_screen.dart';
 import 'Screens/home_screen.dart';
 
@@ -29,17 +31,11 @@ class MyApp extends StatelessWidget {
           color: Colors.blueAccent
         ),
         textTheme: TextTheme(
-          subtitle1: TextStyle(
-            color: Colors.white54
-          ),
-
+          subtitle1: TextStyle(color: Colors.white54),
         ),
         backgroundColor: Color(0xff101010),
-        appBarTheme: AppBarTheme(
-          backgroundColor: Color(0xff272727)
-        ),
+        appBarTheme: AppBarTheme(backgroundColor: Color(0xff272727)),
         scaffoldBackgroundColor: Color(0xff101010),
-
       ),
 
       //................................................................................................................................
@@ -67,9 +63,13 @@ class MyApp extends StatelessWidget {
       routes: {
         '/': (context) => const NavigationScreen(),
         '/about': (context) => const AboutScreen(),
+
         '/connections':(context)=> const ConnectionsScreen(),
         '/home':(conetext)=> const HomeScreen(),
-        '/task':(context)=> const TaskScreen()
+        '/task':(context)=> const TaskScreen(),
+        '/settings': (context) => const SettingsScreen(),
+        '/connections': (context) => const ConnectionsScreen(),
+        '/home': (context) => const HomeScreen()
       },
       initialRoute: '/',
       localizationsDelegates: [
