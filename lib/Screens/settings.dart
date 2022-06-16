@@ -32,14 +32,20 @@ class SettingsScreen extends StatelessWidget {
                   children: [
                     Text(
                       "Alert",
-                      style: TextStyle(fontSize: 20),
+                      style: Theme.of(context)
+                          .textTheme
+                          .subtitle1
+                          ?.copyWith(fontSize: 20),
                     ),
                     Padding(
                       padding: const EdgeInsets.only(left: 2),
                       child: Text(
                         "Medium",
                         style: TextStyle(
-                            fontSize: 14, fontStyle: FontStyle.italic),
+                          fontSize: 14,
+                          fontStyle: FontStyle.italic,
+                          color: Color(0xffABABAB),
+                        ),
                       ),
                     ),
                     SizedBox(
@@ -53,7 +59,7 @@ class SettingsScreen extends StatelessWidget {
               ),
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.all(Radius.elliptical(10, 10)),
-                color: Colors.blue[100],
+                color: Theme.of(context).secondaryHeaderColor,
               ),
             ),
             Padding(
@@ -73,14 +79,20 @@ class SettingsScreen extends StatelessWidget {
                   children: [
                     Text(
                       "Rate this app",
-                      style: TextStyle(fontSize: 20),
+                      style: Theme.of(context)
+                          .textTheme
+                          .subtitle1
+                          ?.copyWith(fontSize: 20),
                     ),
                     SizedBox(
                       height: 15,
                     ),
                     Text(
                       "Support us",
-                      style: TextStyle(fontSize: 20),
+                      style: Theme.of(context)
+                          .textTheme
+                          .subtitle1
+                          ?.copyWith(fontSize: 20),
                     ),
                     SizedBox(
                       height: 15,
@@ -90,7 +102,10 @@ class SettingsScreen extends StatelessWidget {
                       children: [
                         Text(
                           "About",
-                          style: TextStyle(fontSize: 20),
+                          style: Theme.of(context)
+                              .textTheme
+                              .subtitle1
+                              ?.copyWith(fontSize: 20),
                         ),
                       ],
                     )
@@ -99,7 +114,7 @@ class SettingsScreen extends StatelessWidget {
               ),
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.all(Radius.elliptical(10, 10)),
-                color: Colors.blue[100],
+                color: Theme.of(context).secondaryHeaderColor,
               ),
             )
           ],
