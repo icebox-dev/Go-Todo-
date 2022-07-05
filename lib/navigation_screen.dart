@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_todo/Screens/home_screen.dart';
 
-
 class NavigationScreen extends StatelessWidget {
   const NavigationScreen({Key? key}) : super(key: key);
 
@@ -13,6 +12,7 @@ class NavigationScreen extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
+
               TextButton(onPressed: (){}, child: Text("Login")),
               TextButton(onPressed: (){
                 Navigator.push(context, MaterialPageRoute(builder: (context)=>HomeScreen()));
@@ -20,21 +20,27 @@ class NavigationScreen extends StatelessWidget {
                 , child: Text("Home",
 
               ),),
-              TextButton(onPressed: (){}, child: Text("addtask")),
-              TextButton(onPressed: (){}, child: Text("settings")),
-              TextButton(onPressed: (){}, child: Text("Connection")),
-              TextButton(onPressed: (){}, child: Text("about")),
+              TextButton(onPressed: (){
+                Navigator.pushNamed(context, '/task');
+              }, child: Text("addtask")),
+              TextButton(
+                  onPressed: () {
+                    Navigator.pushNamed(context, '/settings');
+                  },
+                  child: Text("settings")),
+              TextButton(onPressed: (){
+                Navigator.pushNamed(context, '/connections');
+              }, child: Text("Connection")),
+              TextButton(onPressed: (){
+                Navigator.pushNamed(context, '/about');
+              }, child: Text("about")),
               TextButton(onPressed: (){}, child: Text("others")),
-
             ],
-
-
           ),
         ),
       ),
     );
   }
 }
-
 
 //home,login,settings,addtask,connection,about,
