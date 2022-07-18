@@ -1,4 +1,4 @@
-import 'dart:ui';
+// import 'dart:ui';
 import 'package:go_todo/StateManagement/provider1.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter/material.dart';
@@ -12,7 +12,10 @@ import 'Screens/home_screen.dart';
 import 'Screens/connecion_screen.dart';
 import 'Screens/home_screen.dart';
 
+
+
 void main() {
+
   runApp(const MyApp());
 }
 
@@ -69,27 +72,24 @@ class MyApp extends StatelessWidget {
         ),
 
           //primarySwatch: Colors.blue,
-
-        home: const NavigationScreen(),
-
+      initialRoute: '/',
       routes: {
         '/': (context) => const NavigationScreen(),
         '/about': (context) => const AboutScreen(),
 
         '/connections':(context)=> const ConnectionsScreen(),
-        '/home':(conetext)=> const HomeScreen(),
+        '/home':(context)=> const HomeScreen(),
         '/task':(context)=> const TaskScreen(),
         '/settings': (context) => const SettingsScreen(),
         '/connections': (context) => const ConnectionsScreen(),
         '/home': (context) => const HomeScreen()
       },
-      initialRoute: '/',
-      localizationsDelegates: [
+      localizationsDelegates: const [
         GlobalWidgetsLocalizations.delegate,
         GlobalMaterialLocalizations.delegate,
         GlobalCupertinoLocalizations.delegate,
       ],
-      supportedLocales: [Locale('en', 'US')],
+      supportedLocales: const [Locale('en', 'US')],
     )
     );
   }
