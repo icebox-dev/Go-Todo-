@@ -1,6 +1,6 @@
 //import 'dart:js';
 
-
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:go_todo/Screens/task_screen.dart';
@@ -39,12 +39,14 @@ class _HomeScreenState extends State<HomeScreen> {
 
 
   @override
+
   initState(){
     WidgetsFlutterBinding.ensureInitialized();
       Provider.of<NotificationService>(context, listen: false).initialize();
       Provider.of<DataStateProvider>(context, listen: false).getTodoList();
     super.initState();
         }
+
 
 
   @override
@@ -159,6 +161,10 @@ class IncompleteTasks extends StatelessWidget {
     //   TodoCard(taskCondition: taskCondition)
     // ];
     int index;
+
+
+
+
     return Scaffold(
       floatingActionButton: FloatingActionButton(onPressed: (){
         Navigator.pushNamed(context, TaskScreen.task_screen);
@@ -221,7 +227,6 @@ class CompletedTasks extends StatelessWidget {
           // }
         },
           itemCount: provider1.completed_Todo,
-
 
 
         ),

@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "869741202433",
+    "project_id": "gotodo-70f3e",
+    "storage_bucket": "gotodo-70f3e.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:869741202433:android:013f2d6327aa112e71c400",
+        "android_client_info": {
+          "package_name": "com.example.go_todo"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "869741202433-ee1jh6v1ubukh9ncc631qeqi9m78of9p.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBP5NrmUffigYZNDO6FlPN_VZNVybd3Yo8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "869741202433-ee1jh6v1ubukh9ncc631qeqi9m78of9p.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

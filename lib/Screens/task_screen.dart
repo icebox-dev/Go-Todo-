@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
+
+import 'package:go_todo/Screens/map_screen.dart';
+
 import 'package:go_todo/StateManagement/provider2Notification.dart';
+
 import 'package:intl/intl.dart';
 import 'package:flutter_switch/flutter_switch.dart';
 
@@ -233,7 +237,13 @@ class _TaskScreenState extends State<TaskScreen> {
                                           color: Theme.of(context).primaryColorDark
                                       ),),
                                       Expanded(child: SizedBox()),
-                                      Icon(Icons.location_pin,size:35),
+                                      TextButton(
+                                          child: Icon(Icons.location_pin,size:35),
+                                        onPressed: () {
+                                          Navigator.push(context, MaterialPageRoute(builder: (context)=>MapScreen()));
+                                        },
+
+                                      ),
                                       SizedBox(width: 7,)
                                     ],
                                   ),

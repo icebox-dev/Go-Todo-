@@ -1,5 +1,7 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:go_todo/Screens/home_screen.dart';
+import 'package:go_todo/Screens/login_screen.dart';
 import 'package:provider/provider.dart';
 
 import 'StateManagement/provider1.dart';
@@ -7,10 +9,10 @@ import 'StateManagement/provider1.dart';
 class NavigationScreen extends StatelessWidget {
   const NavigationScreen({Key? key}) : super(key: key);
 
+
   @override
   Widget build(BuildContext context) {
-   // DataStateProvider provider1 = Provider.of<DataStateProvider>(context);
-
+ 
     return Scaffold(
       body: SafeArea(
         child: Center(
@@ -18,10 +20,21 @@ class NavigationScreen extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
 
-              TextButton(onPressed: (){}, child: Text("Login")),
-              TextButton(onPressed: (){
+              TextButton(
+                  onPressed: () {
+                    Navigator.push(context, MaterialPageRoute(builder: (context)=>LoginScreen()));
+                    },
+                  child: const Text("Login")
+              ),
+              TextButton(onPressed: () {
+                final user = FirebaseAuth.instance.currentUser;
+                if(user == null) {
+                  Navigator.pushNamed(context, '/login');
+                }
+                else {
                 Navigator.push(context, MaterialPageRoute(builder: (context)=>HomeScreen()));
               }
+                }
                 , child: Text("Home",
 
               ),),
