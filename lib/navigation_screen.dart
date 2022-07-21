@@ -1,11 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:go_todo/Screens/home_screen.dart';
+import 'package:provider/provider.dart';
+
+import 'StateManagement/provider1.dart';
 
 class NavigationScreen extends StatelessWidget {
   const NavigationScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+   // DataStateProvider provider1 = Provider.of<DataStateProvider>(context);
+
     return Scaffold(
       body: SafeArea(
         child: Center(
@@ -21,6 +26,7 @@ class NavigationScreen extends StatelessWidget {
 
               ),),
               TextButton(onPressed: (){
+                // await provider1.getTodoList();
                 Navigator.pushNamed(context, '/task');
               }, child: Text("addtask")),
               TextButton(

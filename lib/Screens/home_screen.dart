@@ -1,37 +1,79 @@
+//import 'dart:js';
+
+
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:go_todo/Screens/task_screen.dart';
+import 'package:go_todo/StateManagement/provider1.dart';
+import 'package:go_todo/StateManagement/provider2Notification.dart';
 
 import 'package:go_todo/Widgets/SideMenu.dart';
+import 'package:provider/provider.dart';
+
+import '../components/TodoCard.dart';
+import 'package:go_todo/DataList.dart';
+import 'package:go_todo/StateManagement/provider1.dart';
+
+
+
 
 
 class HomeScreen extends StatefulWidget {
+
+
   const HomeScreen({Key? key}) : super(key: key);
+
+  static const String home = '/home';
 
   @override
   State<HomeScreen> createState() => _HomeScreenState();
+
 }
 
 class _HomeScreenState extends State<HomeScreen> {
   Icon searchIcon = Icon(Icons.search);
   Widget searchBar = Text("Connections");
+
+
+
+
+
+  @override
+  initState(){
+    WidgetsFlutterBinding.ensureInitialized();
+      Provider.of<NotificationService>(context, listen: false).initialize();
+      Provider.of<DataStateProvider>(context, listen: false).getTodoList();
+    super.initState();
+        }
+
+
   @override
   Widget build(BuildContext context) {
     MediaQueryData queryData = MediaQuery.of(context);
+    DataStateProvider provider1 = Provider.of<DataStateProvider>(context);
+
+    void getData(){
+      provider1.getTodoList();
+    }
+
     return DefaultTabController(
       length: 2,
       child: Scaffold(
+
         drawer: NavDrawer(),
         appBar: AppBar(
 
         //leading: IconButton(onPressed: ()=>NavDrawer(), icon: Icon(Icons.menu)),
 
-          title: Text("GO-TODO") ,
+          title: const Text("GO-TODO") ,
           actions: [
             IconButton(onPressed: (){
+              provider1.getTodoList();
               setState((){
-                if(this.searchIcon.icon == Icons.search){
-                  this.searchIcon = Icon(Icons.clear);
-                  this.searchBar = Padding(
-                    padding: const EdgeInsets.all(8.0),
+                if(searchIcon.icon == Icons.search){
+                  searchIcon = Icon(Icons.clear);
+                  searchBar = const Padding(
+                    padding: EdgeInsets.all(8.0),
                     child: TextField(
 
                       textInputAction: TextInputAction.go,
@@ -50,8 +92,8 @@ class _HomeScreenState extends State<HomeScreen> {
                   );
                 }
                 else{
-                  this.searchIcon = Icon(Icons.search);
-                  this.searchBar = Text("Connections");
+                  searchIcon = Icon(Icons.search);
+                  searchBar = Text("Connections");
                 }
               });
             }, icon: searchIcon)
@@ -65,23 +107,21 @@ class _HomeScreenState extends State<HomeScreen> {
               length: 2, // length of tabs
               initialIndex: 0,
               child: Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: <Widget>[
-                Container(
-                  child: Center(
-                    child: TabBar(
+                const Center(
+                  child: TabBar(
 
-                      isScrollable: true,
-                      labelColor: Colors.black54,
-                      indicatorColor: Colors.transparent,
+                    isScrollable: true,
+                    labelColor: Colors.black54,
+                    indicatorColor: Colors.transparent,
 
-                      unselectedLabelColor: Colors.grey,
-                      padding: EdgeInsets.zero,
-                      labelPadding: EdgeInsets.zero,
-                      indicatorPadding: EdgeInsets.zero,
-                      tabs: [
-                        Icon(Icons.square,size: 10,),
-                        Icon(Icons.square,size: 10,)
-                      ],
-                    ),
+                    unselectedLabelColor: Colors.grey,
+                    padding: EdgeInsets.zero,
+                    labelPadding: EdgeInsets.zero,
+                    indicatorPadding: EdgeInsets.zero,
+                    tabs: [
+                      Icon(Icons.square,size: 10,),
+                      Icon(Icons.square,size: 10,)
+                    ],
                   ),
                 ),
                 Container(
@@ -89,8 +129,8 @@ class _HomeScreenState extends State<HomeScreen> {
                      height: queryData.size.height - 100,
                      //height of TabBarView
                     child: TabBarView(children: <Widget>[
+                      IncompleteTasks(),
                       CompletedTasks(),
-                      IncompleteTasks()
                     ])
                 )
               ])
@@ -104,56 +144,41 @@ class _HomeScreenState extends State<HomeScreen> {
 
 
 class IncompleteTasks extends StatelessWidget {
+
   const IncompleteTasks({Key? key}) : super(key: key);
 
 
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body:Column(
-        children: [
-          Text("COMPLETED"
-              ),
-
-          ListView(children: [
-
-          ],)
-        ],
-      ),
-    );
-  }
-}
-class CompletedTasks extends StatefulWidget {
-  CompletedTasks({Key? key}) ;
-
-  @override
-  State<CompletedTasks> createState() => _CompletedTasksState();
-}
-
-class _CompletedTasksState extends State<CompletedTasks> {
-  bool? taskCondition = false;
-
-
-  @override
-
-  Widget build(BuildContext context) {
-    List todoList = <Widget>[
-      TodoCard(taskCondition: taskCondition),
-      TodoCard(taskCondition: taskCondition)
-    ];
+     DataStateProvider provider1 = Provider.of<DataStateProvider>(context);
+     NotificationService provider2 = Provider.of<NotificationService>(context);
+    bool? taskCondition = false;
+    // List todoList = <Widget>[
+    //   TodoCard(taskCondition: taskCondition),
+    //   TodoCard(taskCondition: taskCondition)
+    // ];
     int index;
     return Scaffold(
-      floatingActionButton: FloatingActionButton(onPressed: (){},child: Icon(Icons.add),),
+      floatingActionButton: FloatingActionButton(onPressed: (){
+        Navigator.pushNamed(context, TaskScreen.task_screen);
+        //provider1.alarmTest();
+      },
+        child: Icon(Icons.add,size: 30,),
+      ),
+
       body:Padding(
         padding: const EdgeInsets.all(8.0),
         child: ListView.builder(itemBuilder: (BuildContext context,int index){
-           return TodoCard(taskCondition: taskCondition);
-         },
-         itemCount: 30,
+          List<DataList> lst1 = provider1.incompleted_Todolist;
+         // for(int i = 0; i<provider1.incompleted_Todo;i++){
 
-         )
-          ,
+            return TodoCard(taskCondition: false, title: lst1[index].title , index: index, desc: lst1[index].description , priority: lst1[index].priority,);// ?? Center(child: const CupertinoActivityIndicator());
+         // }
+        },
+          itemCount: provider1.incompleted_Todo,
+
+        ),
       ),
 
     );
@@ -161,42 +186,50 @@ class _CompletedTasksState extends State<CompletedTasks> {
   }
 }
 
-class TodoCard extends StatefulWidget {
-  TodoCard({
-    Key? key,
-    required this.taskCondition,
-  }) : super(key: key);
 
-  late bool? taskCondition;
+
+
+class CompletedTasks extends StatelessWidget {
+
+  CompletedTasks({Key? key}) ;
 
   @override
-  State<TodoCard> createState() => _TodoCardState();
-}
 
-class _TodoCardState extends State<TodoCard> {
+  bool? taskCondition = false;
+
+  int count = 0;
   @override
+
   Widget build(BuildContext context) {
-    return Card(
-      child: ListTile(
+    ScrollController scrollController = ScrollController();
+    DataStateProvider provider1 = Provider.of<DataStateProvider>(context);
+    // List todoList = <Widget>[
+    //   TodoCard(taskCondition: taskCondition),
+    //   TodoCard(taskCondition: taskCondition)
+    // ];
+    int index;
+    return Scaffold(
 
-        leading:Container(
-          width: 50,
-          height: 50,
-          decoration: BoxDecoration(color: Colors.greenAccent,
-         borderRadius: BorderRadius.circular(10)
-          ),
-        ),
-        title: Text("HomeWork"),
-        subtitle: Text("do your home work"),
-        trailing: Checkbox(
-          onChanged: (val){
-            setState((){
-              widget.taskCondition = val;
-            });
+      body:Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: ListView.builder(controller: scrollController ,itemBuilder: (BuildContext context,int index){
+          //for(int i = 0; i<provider1.completed_Todo;i++){
+          List<DataList> lst = provider1.completed_Todolist;
+          // for(int i = 0; i<provider1.incompleted_Todo;i++){
 
-          }, value: widget.taskCondition,
+          return TodoCard(taskCondition: true, title: lst[index].title , index: index, desc: lst[index].description , priority: lst[index].priority,);// ?? Center(child: const CupertinoActivityIndicator());
+          // }
+        },
+          itemCount: provider1.completed_Todo,
+
+
+
         ),
       ),
+
     );
+
   }
 }
+
+

@@ -1,13 +1,23 @@
 import 'package:flutter/material.dart';
+import 'package:go_todo/StateManagement/provider2Notification.dart';
 import 'package:intl/intl.dart';
 import 'package:flutter_switch/flutter_switch.dart';
 
 
 
 import 'package:date_format/date_format.dart';
+import 'package:provider/provider.dart';
 
+import '../StateManagement/provider1.dart';
+
+
+late String title;
+late String description;
 
 class TaskScreen extends StatefulWidget {
+
+  static const task_screen = '/task';
+
   const TaskScreen({Key? key}) : super(key: key);
 
   @override
@@ -27,6 +37,12 @@ class _TaskScreenState extends State<TaskScreen> {
 
   @override
   Widget build(BuildContext context) {
+    DataStateProvider provider1 = Provider.of<DataStateProvider>(context);
+
+    //TextEditingController titleController = TextEditingController();
+    //TextEditingController descriptionController = TextEditingController();
+    NotificationService provider2 = Provider.of<NotificationService>(context);
+
     return Scaffold(
       body: SafeArea(
         child: SingleChildScrollView(
@@ -61,6 +77,10 @@ class _TaskScreenState extends State<TaskScreen> {
                     child: Column(
                       children: [
                         TextField(
+                          onChanged: (val){
+                            title = val;
+                          },
+                         // controller: titleController,
                           style: TextStyle(
                             fontSize: 20
                           ),
@@ -78,6 +98,10 @@ class _TaskScreenState extends State<TaskScreen> {
                           ),
                         ),
                         TextField(
+                          //controller: descriptionController,
+                          onChanged: (val){
+                            description = val;
+                          },
                           maxLines: 3,
                           style: TextStyle(
                               fontSize: 20,
@@ -277,38 +301,33 @@ class _TaskScreenState extends State<TaskScreen> {
                               children: [
                                 Radio(
                                   value: 1,
-                                  groupValue: id,
+                                  groupValue: provider1.radio_id,
                                   activeColor: Colors.greenAccent,
                                   hoverColor: Colors.greenAccent,
                                   fillColor:MaterialStateColor.resolveWith((states) => Colors.greenAccent),
-                                  onChanged: (val) {
-                                    setState(() {
-                                      id = 1;
-                                    });
+                                  onChanged: (_) {
+                                    provider1.priority_change(1);
                                   },
+
                                 ),
                                 Radio(
                                   value: 2,
-                                  groupValue: id,
+                                  groupValue: provider1.radio_id,
                                   activeColor: Colors.yellow[100],
                                   hoverColor: Colors.yellow[100],
                                   fillColor:MaterialStateColor.resolveWith((states) => Colors.yellow),
-                                  onChanged: (val) {
-                                    setState(() {
-                                      id = 2;
-                                    });
+                                  onChanged: (_) {
+                                    provider1.priority_change(2);
                                   },
                                 ),
                                 Radio(
                                   value: 3,
-                                  groupValue: id,
+                                  groupValue: provider1.radio_id,
                                   activeColor: Colors.red[100],
                                   hoverColor: Colors.red[100],
                                   fillColor:MaterialStateColor.resolveWith((states) => Colors.red),
-                                  onChanged: (val) {
-                                    setState(() {
-                                      id = 3;
-                                    });
+                                  onChanged: (_) {
+                                      provider1.priority_change(3);
                                   },
                                 ),
                               ],
@@ -322,16 +341,16 @@ class _TaskScreenState extends State<TaskScreen> {
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 8.0,vertical: 6),
                   child: Container(
-                    padding: EdgeInsets.symmetric(horizontal: 15,vertical: 10),
+                    padding: const EdgeInsets.symmetric(horizontal: 15,vertical: 10),
                     decoration: BoxDecoration(
                         color: Theme.of(context).secondaryHeaderColor,
-                      borderRadius: BorderRadius.all(Radius.circular(10)),
+                      borderRadius: BorderRadius.all(const Radius.circular(10)),
                       boxShadow: [
                         BoxShadow(
                           color: Colors.black.withAlpha(30),
                           blurRadius: 5.0,
                           spreadRadius: 5.0,
-                          offset: Offset(
+                          offset: const Offset(
                             1,
                             1,
                           ),
@@ -346,9 +365,9 @@ class _TaskScreenState extends State<TaskScreen> {
                                 fontSize: 20,
                                 color: Theme.of(context).primaryColorDark
                             ),),
-                            Expanded(child: SizedBox()),
-                            Icon(Icons.add_circle,size: 30,),
-                            SizedBox(width: 10,)
+                            const Expanded(child: SizedBox()),
+                            const Icon(Icons.add_circle,size: 30,),
+                            const SizedBox(width: 10,)
                           ],
                         ),
                       ],
@@ -359,27 +378,36 @@ class _TaskScreenState extends State<TaskScreen> {
                   padding: const EdgeInsets.symmetric(vertical: 15.0,horizontal: 12),
                   child: Row(
                     children: [
-                      Expanded(child: ElevatedButton(onPressed: (){},
+                      Expanded(child: ElevatedButton(onPressed: (){
+                        Navigator.pop(context);
+                      },
+                        style: ButtonStyle(
+                          elevation: MaterialStateProperty.all(0),
+                          shadowColor: MaterialStateProperty.all<Color>(Colors.transparent),
+                          backgroundColor: MaterialStateProperty.all<Color>(Theme.of(context).scaffoldBackgroundColor),
+                      ),
                         child: Text("Cancel",style: TextStyle(
                             fontSize: 20,
                             color: Theme.of(context).iconTheme.color
-                        ),),
+                        ),),)),
+                      const SizedBox(width: 10,),
+                      Expanded(child: ElevatedButton(onPressed: ()async{
+
+                        provider1.AddTask(title, description);
+                        await provider1.saveTodoList();
+
+                       Navigator.pop(context);
+
+                      },
                         style: ButtonStyle(
                           elevation: MaterialStateProperty.all(0),
                           shadowColor: MaterialStateProperty.all<Color>(Colors.transparent),
                           backgroundColor: MaterialStateProperty.all<Color>(Theme.of(context).scaffoldBackgroundColor),
-                      ),)),
-                      SizedBox(width: 10,),
-                      Expanded(child: ElevatedButton(onPressed: (){},
+                        ),
                         child: Text("Save",style: TextStyle(
                           fontSize: 20,
                             color: Theme.of(context).iconTheme.color
-                        ),),
-                        style: ButtonStyle(
-                          elevation: MaterialStateProperty.all(0),
-                          shadowColor: MaterialStateProperty.all<Color>(Colors.transparent),
-                          backgroundColor: MaterialStateProperty.all<Color>(Theme.of(context).scaffoldBackgroundColor),
-                        ),)),
+                        ),),)),
                     ],
                   ),
                 )
@@ -413,35 +441,43 @@ class _DateTimePickerState extends State<DateTimePicker> {
   TextEditingController _timeController = TextEditingController();
 
   Future<Null> _selectDate(BuildContext context) async {
+    DataStateProvider provider = Provider.of<DataStateProvider>(context,listen: false);
     final DateTime? picked = await showDatePicker(
         context: context,
         initialDate: selectedDate,
         initialDatePickerMode: DatePickerMode.day,
         firstDate: DateTime(2015),
         lastDate: DateTime(2101));
-    if (picked != null)
+    if (picked != null) {
       setState(() {
         selectedDate = picked;
         _dateController.text = DateFormat.yMd().format(selectedDate);
       });
+      provider.setDate(_dateController.text);
+    }
   }
 
   Future<Null> _selectTime(BuildContext context) async {
+    DataStateProvider provider = Provider.of<DataStateProvider>(context,listen: false);
     final TimeOfDay? picked = await showTimePicker(
       context: context,
       initialTime: selectedTime,
     );
-    if (picked != null)
+    if (picked != null) {
       setState(() {
         selectedTime = picked;
         _hour = selectedTime.hour.toString();
         _minute = selectedTime.minute.toString();
         _time = _hour! + ' : ' + _minute!;
         _timeController.text = _time!;
+        provider.setDateTime(DateTime(2022,07,21,selectedTime.hour,selectedTime.minute));
         _timeController.text = formatDate(
-            DateTime(2019, 08, 1, selectedTime.hour, selectedTime.minute),
+            DateTime(2022, 07, 21, selectedTime.hour, selectedTime.minute),
             [hh, ':', nn, " ", am]).toString();
       });
+      provider.setTime(_timeController.text);
+
+    }
   }
 
   @override

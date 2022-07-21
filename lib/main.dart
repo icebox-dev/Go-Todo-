@@ -1,5 +1,8 @@
-import 'dart:ui';
+// import 'dart:ui';
 
+import 'package:go_todo/StateManagement/provider1.dart';
+import 'package:go_todo/StateManagement/provider2Notification.dart';
+import 'package:provider/provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:go_todo/Screens/about.dart';
@@ -9,9 +12,17 @@ import 'package:go_todo/navigation_screen.dart';
 
 import 'Screens/home_screen.dart';
 import 'Screens/connecion_screen.dart';
+import 'package:android_alarm_manager_plus/android_alarm_manager_plus.dart';
 import 'Screens/home_screen.dart';
 
+
+
 void main() {
+   WidgetsFlutterBinding.ensureInitialized();
+  AndroidAlarmManager.initialize();
+  NotificationService().initialize();
+
+
   runApp(const MyApp());
 }
 
@@ -20,64 +31,74 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Go-Todo',
-      themeMode: ThemeMode.system,
-      darkTheme: ThemeData(
-        // primaryColor: Colors.white38,
-        primaryColorDark: Colors.white,
-        secondaryHeaderColor: Color(0xff1E1E1E),//secondary backgroud color
-        iconTheme: IconThemeData(
-          color: Colors.blueAccent
-        ),
-        textTheme: TextTheme(
-          subtitle1: TextStyle(color: Colors.white54),
-        ),
-        backgroundColor: Color(0xff101010),
-        appBarTheme: AppBarTheme(backgroundColor: Color(0xff272727)),
-        scaffoldBackgroundColor: Color(0xff101010),
-      ),
 
-      //................................................................................................................................
-      theme: ThemeData(
-        primaryColorDark: Colors.black,
-        secondaryHeaderColor: Color(0xffF4F8FF),//secondary background color
-        iconTheme: IconThemeData(
-          color: Colors.blueAccent
-          // Color(0xff888888)
-        ),
-        textTheme: TextTheme(
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (_)=> DataStateProvider()),
+        ChangeNotifierProvider(create: (_)=> NotificationService()),
+      ],
+      child: MaterialApp(
+        title: 'Go-Todo',
+        themeMode: ThemeMode.system,
+        darkTheme: ThemeData(
+
+          secondaryHeaderColor: const Color(0xff1E1E1E),//secondary backgroud color
+          iconTheme: const IconThemeData(
+            color: Colors.white54
+          ),
+          textTheme: const TextTheme(
             subtitle1: TextStyle(
-                color: Color(0xff222222)
-            )
-        ),
-        scaffoldBackgroundColor:Color(0xffFDFDFD),
-        backgroundColor:Color(0xffFDFDFD) ,
-        appBarTheme: AppBarTheme(
-          color: Color(0xff3E6FF5)
+              color: Colors.white54
+            ),
+
+          ),
+          backgroundColor: const Color(0xff101010),
+          appBarTheme: const AppBarTheme(
+            backgroundColor: Color(0xff272727)
+          ),
+          scaffoldBackgroundColor: const Color(0xff101010),
+
         ),
 
-        //primarySwatch: Colors.blue,
-      ),
-      // home: AboutScreen(),
+        //................................................................................................................................
+        theme: ThemeData(
+
+          secondaryHeaderColor: const Color(0xffF4F8FF),//secondary background color
+          iconTheme: const IconThemeData(
+            color: Color(0xff888888)
+          ),
+          textTheme: const TextTheme(
+              subtitle1: TextStyle(
+                  color: Color(0xff222222)
+              )
+          ),
+          scaffoldBackgroundColor:const Color(0xffFDFDFD),
+          backgroundColor: const Color(0xffFDFDFD) ,
+          appBarTheme: const AppBarTheme(
+            color: Color(0xff3E6FF5)
+          ),
+        ),
+
+          //primarySwatch: Colors.blue,
+      initialRoute: '/',
       routes: {
         '/': (context) => const NavigationScreen(),
         '/about': (context) => const AboutScreen(),
 
         '/connections':(context)=> const ConnectionsScreen(),
-        '/home':(conetext)=> const HomeScreen(),
+        '/home':(context)=> const HomeScreen(),
         '/task':(context)=> const TaskScreen(),
         '/settings': (context) => const SettingsScreen(),
         '/connections': (context) => const ConnectionsScreen(),
         '/home': (context) => const HomeScreen()
       },
-      initialRoute: '/',
-      localizationsDelegates: [
+      localizationsDelegates: const [
         GlobalWidgetsLocalizations.delegate,
         GlobalMaterialLocalizations.delegate,
         GlobalCupertinoLocalizations.delegate,
       ],
-      supportedLocales: [Locale('en', 'US')],
+      supportedLocales: const [Locale('en', 'US')],
+    )
     );
   }
 }
