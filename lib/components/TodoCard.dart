@@ -46,6 +46,8 @@ class _TodoCardState extends State<TodoCard> {
               widget.taskCondition = val!;
               if(val){
                 provider1.completeTask(widget.index);
+                provider1.saveTodoList();
+
               }
             });
 

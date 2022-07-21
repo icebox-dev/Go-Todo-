@@ -5,6 +5,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:go_todo/Screens/task_screen.dart';
 import 'package:go_todo/StateManagement/provider1.dart';
+import 'package:go_todo/StateManagement/provider2Notification.dart';
 
 import 'package:go_todo/Widgets/SideMenu.dart';
 import 'package:provider/provider.dart';
@@ -34,16 +35,28 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget searchBar = Text("Connections");
 
 
+
+
+
   @override
-  initState() {
-      super.initState();
-  }
+
+  initState(){
+    WidgetsFlutterBinding.ensureInitialized();
+      Provider.of<NotificationService>(context, listen: false).initialize();
+      Provider.of<DataStateProvider>(context, listen: false).getTodoList();
+    super.initState();
+        }
+
 
 
   @override
   Widget build(BuildContext context) {
     MediaQueryData queryData = MediaQuery.of(context);
     DataStateProvider provider1 = Provider.of<DataStateProvider>(context);
+
+    void getData(){
+      provider1.getTodoList();
+    }
 
     return DefaultTabController(
       length: 2,
@@ -141,6 +154,7 @@ class IncompleteTasks extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
      DataStateProvider provider1 = Provider.of<DataStateProvider>(context);
+     NotificationService provider2 = Provider.of<NotificationService>(context);
     bool? taskCondition = false;
     // List todoList = <Widget>[
     //   TodoCard(taskCondition: taskCondition),
@@ -154,6 +168,7 @@ class IncompleteTasks extends StatelessWidget {
     return Scaffold(
       floatingActionButton: FloatingActionButton(onPressed: (){
         Navigator.pushNamed(context, TaskScreen.task_screen);
+        //provider1.alarmTest();
       },
         child: Icon(Icons.add,size: 30,),
       ),

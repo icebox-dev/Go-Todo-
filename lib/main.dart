@@ -1,7 +1,10 @@
 // import 'dart:ui';
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:go_todo/StateManagement/google_sign_in.dart';
+
 import 'package:go_todo/StateManagement/provider1.dart';
+import 'package:go_todo/StateManagement/provider2Notification.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -12,6 +15,7 @@ import 'package:go_todo/navigation_screen.dart';
 
 import 'Screens/home_screen.dart';
 import 'Screens/connecion_screen.dart';
+import 'package:android_alarm_manager_plus/android_alarm_manager_plus.dart';
 import 'Screens/home_screen.dart';
 import 'Screens/login_screen.dart';
 
@@ -21,6 +25,11 @@ import 'package:firebase_core/firebase_core.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
+  AndroidAlarmManager.initialize();
+  NotificationService().initialize();
+
+
+
   runApp(const MyApp());
 }
 
@@ -30,19 +39,24 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MultiProvider(
-        providers: [
-          ChangeNotifierProvider(create: (_) => DataStateProvider()),
-          ChangeNotifierProvider(create: (_) => GoogleSignInProvider()),
-        ],
-        child: MaterialApp(
-          title: 'Go-Todo',
-          themeMode: ThemeMode.system,
-          darkTheme: ThemeData(
-            secondaryHeaderColor:
-                const Color(0xff1E1E1E), //secondary background color
-            iconTheme: const IconThemeData(color: Colors.white54),
-            textTheme: const TextTheme(
-              subtitle1: TextStyle(color: Colors.white54),
+
+      providers: [
+        ChangeNotifierProvider(create: (_) => GoogleSignInProvider()),
+        ChangeNotifierProvider(create: (_)=> DataStateProvider()),
+        ChangeNotifierProvider(create: (_)=> NotificationService()),
+      ],
+      child: MaterialApp(
+        title: 'Go-Todo',
+        themeMode: ThemeMode.system,
+        darkTheme: ThemeData(
+
+          secondaryHeaderColor: const Color(0xff1E1E1E),//secondary backgroud color
+          iconTheme: const IconThemeData(
+            color: Colors.white54
+          ),
+          textTheme: const TextTheme(
+            subtitle1: TextStyle(
+              color: Colors.white54
             ),
             backgroundColor: const Color(0xff101010),
             appBarTheme: const AppBarTheme(backgroundColor: Color(0xff272727)),

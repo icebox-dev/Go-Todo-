@@ -1,9 +1,14 @@
 import 'dart:collection';
 import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:go_todo/DataList.dart';
+import 'package:go_todo/Screens/task_screen.dart';
+import 'package:go_todo/StateManagement/provider2Notification.dart';
+import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../components/TodoCard.dart';
+import 'package:android_alarm_manager_plus/android_alarm_manager_plus.dart';
 
 
 
@@ -12,8 +17,11 @@ class DataStateProvider extends ChangeNotifier{
   int radio_id = 1;
   String time = "";
   String date = "";
+  DateTime? dateTime;
   List<DataList> _completed_list = [];
   List<DataList> _incompleted_list = [];
+
+  late SharedPreferences pref;
 
   void AddTask(String title , String description){
     DataList dataList = DataList();
@@ -22,6 +30,10 @@ class DataStateProvider extends ChangeNotifier{
     dataList.priority = radio_id;
     dataList.time = time;
     dataList.date = date;
+    dataList.id = DateTime.now().millisecondsSinceEpoch;
+    dataList.dateTime = dateTime;
+
+    NotificationService().sheduleNotification(dateTime!,title,description);
 
 
     _incompleted_list.add(dataList);
@@ -69,6 +81,10 @@ class DataStateProvider extends ChangeNotifier{
     date = vDate;
     notifyListeners();
   }
+  void setDateTime(DateTime vDateTime){
+    dateTime = vDateTime;
+    notifyListeners();
+  }
 
   void cancel(){
     date = "";
@@ -83,27 +99,102 @@ class DataStateProvider extends ChangeNotifier{
  //    await preferences.setString("completed_list", encodedData);
  // }
 
-   void saveTodoList() async {
-    final prefs = await SharedPreferences.getInstance();
-    prefs.setString('CompletedList', jsonEncode(_completed_list));
-    prefs.setString('IncompletedList', jsonEncode(_incompleted_list));
-    String? c_list = prefs.getString('CompletedList');
-    print(c_list);
+   saveTodoList() async {
+     List completedLocalData = [];
+     List incompletedLocalData = [];
+
+    pref = await SharedPreferences.getInstance();
+    
+    // var string = _completed_list.map((e) => e.toJson()).toList()).toList();
+
+    for(var j in _incompleted_list){
+      print(j.title);
+      incompletedLocalData.add(
+          {
+            "id" : j.id,
+            "title" : j.title,
+            "description" : j.description,
+            "priority" : j.priority,
+            "date" : j.date,
+            "time" : j.time
+          }
+      );
+    }
+    for(var j in _completed_list){
+      print(j.title);
+      completedLocalData.add(
+          {
+            "id" : j.id,
+            "title" : j.title,
+            "description" : j.description,
+            "priority" : j.priority,
+            "date" : j.date,
+            "time" : j.time
+          }
+      );
+    }
+    pref.setString('IncompleteList', jsonEncode(incompletedLocalData));
+    pref.setString('CompleteList', jsonEncode(completedLocalData));
+    print("Todo Saved Sucesfully _-----------------------------------------_____________________---------------------__________--------");
+    print(completedLocalData);
+    notifyListeners();
   }
 
-  void getTodoList()async{
-    final SharedPreferences preferences = await SharedPreferences.getInstance();
-    String? c_list = preferences.getString('CompletedList');
-    String? in_list = preferences.getString('IncompleteList');
-    _completed_list = jsonDecode(c_list!) ?? [];
-    _incompleted_list = jsonDecode(in_list!) ?? [];
+  getTodoList()async{
+    List<DataList> _completed_list = [];
+    List<DataList> _incompleted_list = [];
+    pref = await SharedPreferences.getInstance();
+    String? stringIncompleted = pref.getString("IncompleteList");
+    String? stringCompleted = pref.getString("CompleteList");
+    if(stringIncompleted != null){
+      List listIn = jsonDecode(stringIncompleted) ?? [];
+      for(var jsonData in listIn){
+        _incompleted_list.add(fromJson(jsonData));
+      }
+    }
+    if(stringCompleted != null){
+      List listC = jsonDecode(stringCompleted) ?? [];
+      for(var jsonData in listC){
+        _completed_list.add(fromJson(jsonData));
+      }
+    }
+
+    notifyListeners();
+
   }
 
+
+  // dynamic toJson(String jTitle, String jDescription , int jPriority, String jDate , String jTime ){
+  //   print(jTitle);
+  //     return {
+  //       "title" : jTitle,
+  //       "description" : jDescription,
+  //       "priority" : jPriority,
+  //       "date" : jDate,
+  //       "time" : jTime
+  //     };
+  // }
+  DataList fromJson(jsonData){
+    DataList dataList = DataList();
+    dataList.title = jsonData["title"];
+    dataList.description = jsonData["description"];
+    dataList.priority = jsonData["priority"];
+    dataList.date = jsonData["date"];
+    dataList.time = jsonData["time"];
+    dataList.id = jsonData["id"];
+    dataList.dateTime = jsonData["dateTime"];
+    return dataList;
+  }
+
+
+  // alarmTest(){
+  //   AndroidAlarmManager.oneShot(Duration(seconds: 10), 20,NotificationService().instantNotification,alarmClock: true );
+  //   print(DateTime.now());
+  // }
 
 }
+  void fireAlarm (){
+  print("Alarm fired");
+  }
 
-// void incompleteTask(int index){
-//   completed_list.add(incompleted_list[index]);
-//   incompleted_list.removeAt(index);
-//   notifyListeners();
-// }
+

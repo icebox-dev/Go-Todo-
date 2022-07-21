@@ -12,8 +12,8 @@ class NavigationScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    DataStateProvider provider1 = Provider.of<DataStateProvider>(context);
-      return Scaffold(
+ 
+    return Scaffold(
       body: SafeArea(
         child: Center(
           child: Column(
@@ -38,8 +38,8 @@ class NavigationScreen extends StatelessWidget {
                 , child: Text("Home",
 
               ),),
-              TextButton(onPressed: () {
-                 provider1.getTodoList();
+              TextButton(onPressed: (){
+                // await provider1.getTodoList();
                 Navigator.pushNamed(context, '/task');
               }, child: Text("addtask")),
               TextButton(

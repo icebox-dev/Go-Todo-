@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
+
 import 'package:go_todo/Screens/map_screen.dart';
+
+import 'package:go_todo/StateManagement/provider2Notification.dart';
+
 import 'package:intl/intl.dart';
 import 'package:flutter_switch/flutter_switch.dart';
 
@@ -41,7 +45,7 @@ class _TaskScreenState extends State<TaskScreen> {
 
     //TextEditingController titleController = TextEditingController();
     //TextEditingController descriptionController = TextEditingController();
-    DataStateProvider provider = Provider.of<DataStateProvider>(context);
+    NotificationService provider2 = Provider.of<NotificationService>(context);
 
     return Scaffold(
       body: SafeArea(
@@ -307,33 +311,33 @@ class _TaskScreenState extends State<TaskScreen> {
                               children: [
                                 Radio(
                                   value: 1,
-                                  groupValue: provider.radio_id,
+                                  groupValue: provider1.radio_id,
                                   activeColor: Colors.greenAccent,
                                   hoverColor: Colors.greenAccent,
                                   fillColor:MaterialStateColor.resolveWith((states) => Colors.greenAccent),
                                   onChanged: (_) {
-                                    provider.priority_change(1);
+                                    provider1.priority_change(1);
                                   },
 
                                 ),
                                 Radio(
                                   value: 2,
-                                  groupValue: provider.radio_id,
+                                  groupValue: provider1.radio_id,
                                   activeColor: Colors.yellow[100],
                                   hoverColor: Colors.yellow[100],
                                   fillColor:MaterialStateColor.resolveWith((states) => Colors.yellow),
                                   onChanged: (_) {
-                                    provider.priority_change(2);
+                                    provider1.priority_change(2);
                                   },
                                 ),
                                 Radio(
                                   value: 3,
-                                  groupValue: provider.radio_id,
+                                  groupValue: provider1.radio_id,
                                   activeColor: Colors.red[100],
                                   hoverColor: Colors.red[100],
                                   fillColor:MaterialStateColor.resolveWith((states) => Colors.red),
                                   onChanged: (_) {
-                                      provider.priority_change(3);
+                                      provider1.priority_change(3);
                                   },
                                 ),
                               ],
@@ -397,10 +401,11 @@ class _TaskScreenState extends State<TaskScreen> {
                             color: Theme.of(context).iconTheme.color
                         ),),)),
                       const SizedBox(width: 10,),
-                      Expanded(child: ElevatedButton(onPressed: (){
+                      Expanded(child: ElevatedButton(onPressed: ()async{
 
                         provider1.AddTask(title, description);
-                        provider1.saveTodoList();
+                        await provider1.saveTodoList();
+
                        Navigator.pop(context);
 
                       },
@@ -475,8 +480,9 @@ class _DateTimePickerState extends State<DateTimePicker> {
         _minute = selectedTime.minute.toString();
         _time = _hour! + ' : ' + _minute!;
         _timeController.text = _time!;
+        provider.setDateTime(DateTime(2022,07,21,selectedTime.hour,selectedTime.minute));
         _timeController.text = formatDate(
-            DateTime(2019, 08, 1, selectedTime.hour, selectedTime.minute),
+            DateTime(2022, 07, 21, selectedTime.hour, selectedTime.minute),
             [hh, ':', nn, " ", am]).toString();
       });
       provider.setTime(_timeController.text);
