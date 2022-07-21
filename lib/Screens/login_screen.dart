@@ -11,15 +11,23 @@ class LoginScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // var logoImage;
+    // if(ThemeMode.system == ThemeMode.light) {
+    //   logoImage = AssetImage('assets/images/logoLight.png');
+    // }
+    // else {
+    //   logoImage = AssetImage('assets/images/logoDark.png');
+    // }
+
     return Scaffold(
       resizeToAvoidBottomInset: true,
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children:  [
-          const CircleAvatar(
+           CircleAvatar(
             radius: 85,
             child: Image(
-              image: AssetImage('assets/images/logo.png'),
+              image: AssetImage('assets/images/logoLight.png'),
             ),
           ),
           const SizedBox(
