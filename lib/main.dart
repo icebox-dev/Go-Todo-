@@ -1,5 +1,7 @@
 // import 'dart:ui';
+
 import 'package:go_todo/StateManagement/provider1.dart';
+import 'package:go_todo/StateManagement/provider2Notification.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -10,11 +12,16 @@ import 'package:go_todo/navigation_screen.dart';
 
 import 'Screens/home_screen.dart';
 import 'Screens/connecion_screen.dart';
+import 'package:android_alarm_manager_plus/android_alarm_manager_plus.dart';
 import 'Screens/home_screen.dart';
 
 
 
 void main() {
+   WidgetsFlutterBinding.ensureInitialized();
+  AndroidAlarmManager.initialize();
+  NotificationService().initialize();
+
 
   runApp(const MyApp());
 }
@@ -28,6 +35,7 @@ class MyApp extends StatelessWidget {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (_)=> DataStateProvider()),
+        ChangeNotifierProvider(create: (_)=> NotificationService()),
       ],
       child: MaterialApp(
         title: 'Go-Todo',
