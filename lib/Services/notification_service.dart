@@ -55,6 +55,26 @@ class NotificationService extends ChangeNotifier {
     // await flutterLocalNotificationsPlugin.periodicallyShow(0, "Demo notification", "Body of demo notification", sheduleTime, platform);
     await flutterLocalNotificationsPlugin.schedule(0, title,description, dateTime,platform);
   }
+  Future shedulePeriodicalNotification (DateTime dateTime,String title,String description) async{
+    tz.initializeTimeZones();
+    tz.setLocalLocation(tz.getLocation("Asia/Calcutta"));
+    var intervel = RepeatInterval.everyMinute;
+    var bigpicure = BigPictureStyleInformation(
+      DrawableResourceAndroidBitmap('@mipmap/ic_launcher'),
+      largeIcon:  DrawableResourceAndroidBitmap('@mipmap/ic_launcher'),
+      contentTitle: title,
+      summaryText: description,
+      htmlFormatContent: true,
+      htmlFormatContentTitle: true,
+    );
+
+    var android = AndroidNotificationDetails("id", "channel",styleInformation: bigpicure);
+    var platform = NotificationDetails(android: android);
+    print(DateTime.now());
+
+    await flutterLocalNotificationsPlugin.periodicallyShow(0, "Demo notification", "Body of demo notification", intervel, platform);
+    //await flutterLocalNotificationsPlugin.schedule(0, title,description, dateTime,platform);
+  }
 
   Future cancelNotification()async {
     await flutterLocalNotificationsPlugin.cancel(0);

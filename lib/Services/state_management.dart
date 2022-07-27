@@ -4,7 +4,8 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:go_todo/DataList.dart';
 import 'package:go_todo/Screens/task_screen.dart';
-import 'package:go_todo/StateManagement/provider2Notification.dart';
+import 'package:go_todo/Services/notification_service.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../components/TodoCard.dart';
@@ -15,6 +16,7 @@ import 'package:android_alarm_manager_plus/android_alarm_manager_plus.dart';
 class DataStateProvider extends ChangeNotifier{
   int count = 0;
   int radio_id = 1;
+  LatLng? location;
   String time = "";
   String date = "";
   DateTime? dateTime;
@@ -32,8 +34,11 @@ class DataStateProvider extends ChangeNotifier{
     dataList.date = date;
     dataList.id = DateTime.now().millisecondsSinceEpoch;
     dataList.dateTime = dateTime;
+    dataList.location = location;
+    if(dateTime != null){
+      NotificationService().sheduleNotification(dateTime!,title,description);
+    }
 
-    NotificationService().sheduleNotification(dateTime!,title,description);
 
 
     _incompleted_list.add(dataList);
@@ -184,6 +189,12 @@ class DataStateProvider extends ChangeNotifier{
     dataList.id = jsonData["id"];
     dataList.dateTime = jsonData["dateTime"];
     return dataList;
+  }
+
+
+  void setLatLong(LatLng latLng){
+      location = latLng;
+      notifyListeners();
   }
 
 

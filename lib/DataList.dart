@@ -1,14 +1,16 @@
 
 
 
+import 'package:google_maps_flutter/google_maps_flutter.dart';
+
 class DataList{
   late int id;
   late String title;
   late String description;
-  late String? time;
-  late String? location;
-  late String? date;
-  late DateTime? dateTime;
+  String? time;
+  LatLng? location;
+  String? date;
+  DateTime? dateTime;
   int priority = 0;
 
 }

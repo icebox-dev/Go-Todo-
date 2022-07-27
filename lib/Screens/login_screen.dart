@@ -1,7 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:go_todo/Screens/loading_screen.dart';
-import 'package:go_todo/StateManagement/google_sign_in.dart';
+import 'package:go_todo/Services/google_sign_in.dart';
 import 'package:provider/provider.dart';
 
 import 'home_screen.dart';

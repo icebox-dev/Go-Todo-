@@ -2,7 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:provider/provider.dart';
-import '../StateManagement/google_sign_in.dart';
+import '../Services/google_sign_in.dart';
 import 'home_screen.dart';
 
 class LoadingScreen extends StatefulWidget {

@@ -1,10 +1,11 @@
 // import 'dart:ui';
 
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:go_todo/StateManagement/google_sign_in.dart';
+import 'package:go_todo/Services/background_location.dart';
+import 'package:go_todo/Services/google_sign_in.dart';
 
-import 'package:go_todo/StateManagement/provider1.dart';
-import 'package:go_todo/StateManagement/provider2Notification.dart';
+import 'package:go_todo/Services/state_management.dart';
+import 'package:go_todo/Services/notification_service.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -44,6 +45,7 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (_) => GoogleSignInProvider()),
         ChangeNotifierProvider(create: (_)=> DataStateProvider()),
         ChangeNotifierProvider(create: (_)=> NotificationService()),
+        ChangeNotifierProvider(create: (_) => BackGroundLocation())
       ],
       child: MaterialApp(
         title: 'Go-Todo',
@@ -58,6 +60,7 @@ class MyApp extends StatelessWidget {
             subtitle1: TextStyle(
               color: Colors.white54
             ),
+          ),
             backgroundColor: const Color(0xff101010),
             appBarTheme: const AppBarTheme(backgroundColor: Color(0xff272727)),
             scaffoldBackgroundColor: const Color(0xff101010),
@@ -77,7 +80,7 @@ class MyApp extends StatelessWidget {
 
           //primarySwatch: Colors.blue,
 
-          initialRoute: '/',
+          initialRoute: '/login',
           routes: {
             '/': (context) => const NavigationScreen(),
             '/about': (context) => const AboutScreen(),
