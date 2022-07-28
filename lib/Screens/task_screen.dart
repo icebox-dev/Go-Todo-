@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'package:go_todo/Screens/map_screen.dart';
 
-import 'package:go_todo/StateManagement/provider2Notification.dart';
+import 'package:go_todo/Services/notification_service.dart';
 
 import 'package:intl/intl.dart';
 import 'package:flutter_switch/flutter_switch.dart';
@@ -12,7 +12,8 @@ import 'package:flutter_switch/flutter_switch.dart';
 import 'package:date_format/date_format.dart';
 import 'package:provider/provider.dart';
 
-import '../StateManagement/provider1.dart';
+import '../Services/background_location.dart';
+import '../Services/state_management.dart';
 
 
 late String title;
@@ -46,6 +47,7 @@ class _TaskScreenState extends State<TaskScreen> {
     //TextEditingController titleController = TextEditingController();
     //TextEditingController descriptionController = TextEditingController();
     NotificationService provider2 = Provider.of<NotificationService>(context);
+    BackGroundLocation provider3 = Provider.of<BackGroundLocation>(context);
 
     return Scaffold(
       body: SafeArea(
@@ -405,8 +407,10 @@ class _TaskScreenState extends State<TaskScreen> {
 
                         provider1.AddTask(title, description);
                         await provider1.saveTodoList();
+                        provider3.checkDistance(provider1.incompleted_Todolist);
 
                        Navigator.pop(context);
+                        //Navigator.push(context, MaterialPageRoute(builder: (context) => TestScreen()));
 
                       },
                         style: ButtonStyle(

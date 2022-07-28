@@ -1,7 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import '../StateManagement/google_sign_in.dart';
+import '../Services/google_sign_in.dart';
 
 class NavDrawer extends StatelessWidget {
 
@@ -82,9 +82,14 @@ class NavDrawer extends StatelessWidget {
               Icons.people_alt,
               color: Theme.of(context).iconTheme.color,
             ),
-            title: Text(
-              'Connections',
-              style: Theme.of(context).textTheme.subtitle1,
+            title: GestureDetector(
+              onTap: (){
+                Navigator.pushNamed(context, "/connections");
+              },
+              child: Text(
+                'Connections',
+                style: Theme.of(context).textTheme.subtitle1,
+              ),
             ),
             onTap: () => {},
           ),
@@ -94,9 +99,14 @@ class NavDrawer extends StatelessWidget {
               Icons.settings,
               color: Theme.of(context).iconTheme.color,
             ),
-            title: Text(
-              'Settings',
-              style: Theme.of(context).textTheme.subtitle1,
+            title: GestureDetector(
+              onTap: (){
+                Navigator.pushNamed(context, "/settings");
+              },
+              child: Text(
+                'Settings',
+                style: Theme.of(context).textTheme.subtitle1,
+              ),
             ),
             onTap: () => {Navigator.of(context).pop()},
           ),

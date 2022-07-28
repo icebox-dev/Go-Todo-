@@ -3,7 +3,10 @@
 import 'dart:async';
 import 'package:geolocator/geolocator.dart';
 import 'package:flutter/material.dart';
+import 'package:go_todo/Services/background_location.dart';
+import 'package:go_todo/Services/state_management.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:provider/provider.dart';
 
 class MapScreen extends StatefulWidget {
   const MapScreen({Key? key}) : super(key: key);
@@ -19,10 +22,11 @@ class _MapScreenState extends State<MapScreen> {
   List<Marker> myMarker = [];
 
   Widget build(BuildContext context) {
+    DataStateProvider provider = Provider.of<DataStateProvider>(context);
     Completer<GoogleMapController> _controller = Completer();
     Marker _destination;
 
-    Future<Position> _determinePosition() async {
+    Future<void> _determinePosition() async {
       bool serviceEnabled;
       LocationPermission permission;
 
@@ -58,10 +62,9 @@ class _MapScreenState extends State<MapScreen> {
       final GoogleMapController controller = await _controller.future;
       controller.animateCamera(CameraUpdate.newCameraPosition(cameraPosition));
 
-      print('-----------');
-      print(latLongPosition.toString());
 
-      return _location;
+
+
     }
 
     _handleTap(LatLng tappedPoint) {
@@ -143,8 +146,9 @@ class _MapScreenState extends State<MapScreen> {
           TextButton(
               onPressed: () {
                 if(myMarker.isNotEmpty) {
+                  provider.setLatLong(myMarker[0].position);
                   print(myMarker[0].position.toString());
-                  Navigator.pushNamed(context, '/home');
+                  Navigator.pop(context);
                 }
               },
               child: const Icon(Icons.done)

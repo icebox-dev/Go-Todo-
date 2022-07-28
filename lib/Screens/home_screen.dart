@@ -4,15 +4,16 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:go_todo/Screens/task_screen.dart';
-import 'package:go_todo/StateManagement/provider1.dart';
-import 'package:go_todo/StateManagement/provider2Notification.dart';
+import 'package:go_todo/Services/background_location.dart';
+import 'package:go_todo/Services/state_management.dart';
+import 'package:go_todo/Services/notification_service.dart';
 
 import 'package:go_todo/Widgets/SideMenu.dart';
 import 'package:provider/provider.dart';
 
 import '../components/TodoCard.dart';
 import 'package:go_todo/DataList.dart';
-import 'package:go_todo/StateManagement/provider1.dart';
+import 'package:go_todo/Services/state_management.dart';
 
 
 
@@ -43,8 +44,11 @@ class _HomeScreenState extends State<HomeScreen> {
   initState(){
     WidgetsFlutterBinding.ensureInitialized();
       Provider.of<NotificationService>(context, listen: false).initialize();
-      Provider.of<DataStateProvider>(context, listen: false).getTodoList();
+
+
     super.initState();
+    Provider.of<DataStateProvider>(context, listen: false).getTodoList();
+      Provider.of<BackGroundLocation>(context,listen: false).backgroundLocationService();
         }
 
 
@@ -53,6 +57,7 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     MediaQueryData queryData = MediaQuery.of(context);
     DataStateProvider provider1 = Provider.of<DataStateProvider>(context);
+
 
     void getData(){
       provider1.getTodoList();

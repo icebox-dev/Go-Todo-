@@ -82,7 +82,7 @@ class FriendsWidget extends StatelessWidget {
       children: [
         FriendRequestView("5"),
         ConnectionListView("https://www.himalmag.com/wp-content/uploads/2019/07/sample-profile-picture.png", "Emma Watson", "emma@exapmle.com"),
-        ConnectionListView("https://i.pinimg.com/236x/e2/81/cc/e281cce8e26db25388a247a2c994d1f4.jpg", "Johnny Deep", "jacksparrow@exapmle.com"),
+        ConnectionListView("https://i.pinimg.com/236x/e2/81/cc/e281cce8e26db25388a247a2c994d1f4.jpg", "Johnny Depp", "jacksparrow@exapmle.com"),
         ConnectionListView("https://i.pinimg.com/564x/a8/73/f3/a873f3f357e4fe348fb8100ce31d62be.jpg", "Dwayne Johnson", "therock@exapmle.com"),
         ConnectionListView("https://i.pinimg.com/236x/80/6c/3b/806c3b0f0aa6ab92a751057f41d3a9ad.jpg", "Gal Gadot", "wonderwoman@exapmle.com"),
       ],

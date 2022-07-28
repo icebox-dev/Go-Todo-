@@ -4,7 +4,7 @@ import 'package:go_todo/Screens/home_screen.dart';
 import 'package:go_todo/Screens/login_screen.dart';
 import 'package:provider/provider.dart';
 
-import 'StateManagement/provider1.dart';
+import 'Services/state_management.dart';
 
 class NavigationScreen extends StatelessWidget {
   const NavigationScreen({Key? key}) : super(key: key);
@@ -32,7 +32,7 @@ class NavigationScreen extends StatelessWidget {
                   Navigator.pushNamed(context, '/login');
                 }
                 else {
-                Navigator.push(context, MaterialPageRoute(builder: (context)=>HomeScreen()));
+                Navigator.push(context, MaterialPageRoute(builder: (context)=>const HomeScreen()));
               }
                 }
                 , child: Text("Home",
