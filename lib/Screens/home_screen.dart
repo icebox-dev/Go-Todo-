@@ -44,9 +44,10 @@ class _HomeScreenState extends State<HomeScreen> {
   initState(){
     WidgetsFlutterBinding.ensureInitialized();
       Provider.of<NotificationService>(context, listen: false).initialize();
-      Provider.of<DataStateProvider>(context, listen: false).getTodoList();
+
 
     super.initState();
+    Provider.of<DataStateProvider>(context, listen: false).getTodoList();
       Provider.of<BackGroundLocation>(context,listen: false).backgroundLocationService();
         }
 
